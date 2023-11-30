@@ -1166,22 +1166,22 @@ l15 53 -32 -8 c-34 -8 -38 -8 -212 0 -60 3 -121 2 -135 -3z m185 -63 c15 -7
         generateTable(table, json.Product, json.item, json.productsum);
         document.getElementById("data1").innerHTML = `${
           json.distype === "int"
-            ? `${json.amount.toLocaleString("en-US")} บาท`
+            ? `${json.amount.toLocaleString("en-US")}฿`
             : json.distype === "percent"
             ? `${json.amount.toLocaleString("en-US")} %`
             : "-"
         }`;
         document.getElementById("data2").innerHTML = `${
           json.distype === "int"
-            ? `${json.amount.toLocaleString("en-US")} บาท`
+            ? `${json.amount.toLocaleString("en-US")}฿`
             : json.distype === "percent"
-            ? `${json.amount.toLocaleString("en-US")} %`
-            : "-"
+            ? `${json.productsum * (json.amount / 100)} บาท`
+            : `0 บาท`
         }`;
-        document.getElementById("data3").innerHTML = `${json.subtotal}`;
-        document.getElementById("data4").innerHTML = `${json.Paytype}`;
-        document.getElementById("data5").innerHTML = `${json.Payamt ? json.Payamt : json.subtotal}`;
-        document.getElementById("data6").innerHTML = `${json.Change ? json.Change : 0}`;
+        document.getElementById("data3").innerHTML = `${json.subtotal.toLocaleString("en-US")}`;
+        document.getElementById("data4").innerHTML = `${json.Paytype.toLocaleString("en-US")}`;
+        document.getElementById("data5").innerHTML = `${json.Payamt ? json.Payamt.toLocaleString("en-US") : json.subtotal.toLocaleString("en-US")}`;
+        document.getElementById("data6").innerHTML = `${json.Change ? json.Change.toLocaleString("en-US") : 0}`;
       })
       .then((e) => {
         electron.receipt("Print");

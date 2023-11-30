@@ -4,7 +4,6 @@ import usePosContext from "../../zustand/PosContext";
 
 const Paymentlist = ({ proname, qty, price, row, code, fabric, size, barcode, customProducts }) => {
   const [Expand, setExpand] = useState(false);
-  console.log(customProducts);
   const addqty = usePosContext((state) => state.addqty);
   const removeqty = usePosContext((state) => state.removeqty);
   const removeBarcode = usePosContext((state) => state.removeBarcode);

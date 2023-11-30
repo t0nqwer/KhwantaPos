@@ -53,9 +53,10 @@ const usePosContext = create((set, get) => ({
   },
   createBill: async () => {
     const { data } = await axios.get(`${url}/product/CreateBill`);
-    set((state) => ({ ...state, activeBillList: [...state.activeBillList, data], activeBill: data }));
+    set((state) => ({ ...state, activeBillList: data.list, activeBill: data.current }));
   },
   deleteBill: async (id) => {
+    console.log(id);
     const { data } = await axios.delete(`${url}/product/DeleteBill/${id}`);
     set((state) => ({ ...state, activeBillList: data, activeBill: {} }));
   },
@@ -149,6 +150,7 @@ const usePosContext = create((set, get) => ({
   },
   FinishPayment: async (type, totalBfDiscount, totalPay, cash, change) => {
     const state = get();
+    console.log(type, totalBfDiscount, totalPay, cash, change);
     const { data } = await axios.post(`${url}/product/finishBill`, {
       billName: state.activeBill.name,
       type: type,
@@ -160,7 +162,9 @@ const usePosContext = create((set, get) => ({
     console.log(data);
     set((state) => ({ ...state, activeBill: {}, ResultData: data }));
   },
-  reset: async () => {},
+  reset: async () => {
+    set((state) => ({ ...state, activeBill: {}, ResultData: {} }));
+  },
 }));
 
 export default usePosContext;

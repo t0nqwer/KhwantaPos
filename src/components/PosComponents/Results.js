@@ -7,7 +7,9 @@ const Results = () => {
   const setOpenPayment = useUiContext((state) => state.setOpenPayment);
   const setActiveBill = usePosContext((state) => state.setActiveBill);
   const ResultData = usePosContext((state) => state.ResultData);
+  const reset = usePosContext((state) => state.reset);
   const finishPayment = () => {
+    reset();
     setOpenResult(false);
     setOpenPayment(false);
   };

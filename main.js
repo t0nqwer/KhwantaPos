@@ -67,3 +67,6 @@ ipcMain.on("print", (event, arg) => {
     });
   });
 });
+ipcMain.on("close", () => {
+  app.quit();
+});

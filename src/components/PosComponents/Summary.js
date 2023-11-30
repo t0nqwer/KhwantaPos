@@ -65,7 +65,15 @@ const Summary = () => {
           <div className="text-3xl text-white rounded-full ">
             <BiEditAlt />
           </div>
-          <div className="text-3xl text-white rounded-full " onClick={() => deleteBill(activeBill?._id)}>
+          <div
+            className="text-3xl text-white rounded-full "
+            onClick={() => {
+              if (!activeBill?._id) return;
+              deleteBill(activeBill?._id);
+
+              // deleteBill(activeBill?._id)
+            }}
+          >
             <IoCloseCircleOutline />
           </div>
         </div>

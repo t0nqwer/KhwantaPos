@@ -79,8 +79,16 @@ const Payment = () => {
   const PayCash = () => {
     if (toNumber(PayValue) < Subtotal) return notify("จำนวนเงินไม่เพียงพอ");
     const date = useGetDateTime();
-    const data = { ...sentdata, subtotal: +Subtotal, time: date.time, Paytype: "เงินสด", Payamt: +PayValue, Change: +PayValue - Subtotal };
-    FinishPayment("cash", Subtotal, data.productsum, +PayValue, +PayValue - Subtotal);
+    const data = {
+      ...sentdata,
+      subtotal: +Subtotal,
+      time: date.time,
+      Paytype: "เงินสด",
+      Payamt: toNumber(PayValue),
+      Change: toNumber(PayValue) - Subtotal,
+    };
+    console.log(data);
+    FinishPayment("cash", Subtotal, data.productsum, inputValue, inputValue - Subtotal);
     setOpenResult(true);
     electron.Print.Print(data);
   };
@@ -205,6 +213,7 @@ const Payment = () => {
             <div
               className="flex items-center justify-center h-full px-2 text-center text-white align-middle w-36 bg-secondary hover:bg-zinc-600 active:bg-zinc-800"
               onClick={(e) => {
+                setInputvalue(Subtotal);
                 setPayvalue(formatter.format(Subtotal));
               }}
             >
