@@ -1,0 +1,124 @@
+{
+  "name": "khwantapos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon --exec electron .",
+    "dev": "electron .",
+    "Server": "node server/server.js",
+    "watch": "webpack --config webpack.common.js --watch",
+    "postinstall": "electron-builder install-app-deps",
+    "rebuild": "electron-rebuild --force",
+    "build": "webpack --config webpack.prod.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "make:linux": "electron-builder --linux",
+    "make:macos": "electron-builder --mac",
+    "make:win": "electron-builder --win --x64"
+  },
+  "keywords": [],
+  "author": "jirapat teja",
+  "license": "ISC",
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules/",
+      "data.json",
+      "build/",
+      "assets/"
+    ]
+  },
+  "dependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-react": "^7.23.3",
+    "@types/electron": "^1.6.10",
+    "@types/node": "^20.10.0",
+    "autoprefixer": "^10.4.16",
+    "axios": "^1.6.2",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
+    "electron": "22.0",
+    "electron-builder": "^24.9.1",
+    "electron-pos-printer": "^1.3.7",
+    "electron-reload": "^2.0.0-alpha.1",
+    "kill-port": "^2.0.1",
+    "nodemon": "^3.0.1",
+    "postcss": "^8.4.31",
+    "postcss-loader": "^7.3.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.12.0",
+    "react-router-dom": "^6.20.0",
+    "serialport": "^12.0.0",
+    "socket.io-client": "^4.7.2",
+    "style-loader": "^3.3.3",
+    "tailwind-scrollbar": "^3.0.5",
+    "tailwindcss": "^3.3.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "^5.10.0",
+    "zustand": "^4.4.6"
+  },
+  "build": {
+    "productName": "KhwantaPos",
+    "appId": "com.jerga.chatapp",
+    "files": [
+      "build/**/*",
+      "assets/**/*",
+      "utils/**/*",
+      "node_modules/.prisma/**/*",
+      "node_modules/@prisma/**/*",
+      "index.html",
+      "main.js",
+      "preload.js",
+      "./server/server.js",
+      "./assets/Receipt.html",
+      "./assets/data.json"
+    ],
+    "extraResources": [
+      "server/**/*",
+      "./assets/**",
+      "./prisma/**",
+      "node_modules/@prisma/**/*",
+      "node_modules/.prisma/client/**"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "icon": "assets/logo.ico",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 810,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "icon": "assets/logo.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Development"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Athiti:wght@200&family=Noto+Sans+Thai:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .li {
+    @apply p-3 text-lg rounded-lg hover:bg-secondary w-60;
+  }
+  .liactive {
+    @apply p-3 text-lg rounded-lg bg-secondary w-60;
+  }
+  .calculator {
+    @apply flex items-center justify-center w-16 h-16 text-4xl text-center rounded-full outline hover:bg-white hover:text-primary active:bg-secondary;
+  }
+}
+
+@layer base {
+  html {
+    font-family: Noto Sans Thai;
+  }
+  body {
+    height: 100vh;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+  }
+}
