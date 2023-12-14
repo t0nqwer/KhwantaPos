@@ -5,6 +5,7 @@ const useUiContext = create((set) => ({
   OpenResult: false,
   OpenPayment: false,
   DiscountModalActive: false,
+  CloseShopModalActive: false,
   setDiscountModalActive: (DiscountModalActive) => {
     console.log(DiscountModalActive);
     set(() => ({ DiscountModalActive }));
@@ -12,6 +13,7 @@ const useUiContext = create((set) => ({
   setSideBarActive: (SideBarActive) => set(() => ({ SideBarActive })),
   setOpenResult: (OpenResult) => set(() => ({ OpenResult })),
   setOpenPayment: (OpenPayment) => set(() => ({ OpenPayment })),
+  setCloseShopModalActive: (CloseShopModalActive) => set(() => ({ CloseShopModalActive })),
 }));
 
 export default useUiContext;

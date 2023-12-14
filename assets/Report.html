@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      page {
+        size: 80mm 297mm;
+        margin: 0;
+        padding: 0;
+        page-break-before: always;
+      }
+      p {
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: right;
+        font-size: 15px;
+        font-weight: 700;
+      }
+      body {
+        margin: 0;
+        width: 80mm;
+        padding: 0;
+      }
+      .mainDiv {
+        margin: 0;
+        padding: 0;
+        page-break-before: always;
+        display: grid;
+        grid-template-columns: 100px auto;
+      }
+      .lable {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .sperator {
+        border-bottom: 1px solid black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 0;
+      }
+      #shopName {
+        font-size: 20px;
+        font-weight: 700;
+        margin-top: 0;
+        margin-bottom: 0;
+        grid-column-start: 1;
+        grid-column-end: 3;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="mainDiv">
+        <p id="shopName" style="text-align: center">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="sperator"></p>
+        <p class="sperator"></p>
+        <p class="lable">วันที่</p>
+        <p id="date" class="">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">เวลาเปิด</p>
+        <p id="Opentime">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">เวลาปิด</p>
+        <p id="CloseTime">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">เวลาเปิดทั้งหมด</p>
+        <p id="OpenHour">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="sperator"></p>
+        <p class="sperator"></p>
+        <p class="lable">จำนวนบิล</p>
+        <p id="billCount">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">ยอดทั้งหมด</p>
+        <p id="total">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">ยอดเสื้อผ้า</p>
+        <p id="clothTotal">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">ยอดเงินสด</p>
+        <p id="cashTotal">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">ยอดบัตรเครดิต</p>
+        <p id="cardTotal">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">ยอดเงินโอน</p>
+        <p id="QRTotal">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">ส่วนลดทั้งหมด</p>
+        <p id="discountTotal">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="sperator"></p>
+        <p class="sperator"></p>
+        <p class="lable">เงินเปิดร้าน</p>
+        <p id="cashOpen">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">เงินเข้า</p>
+        <p id="cashIn">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">เงินออก</p>
+        <p id="cashOut">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">เงินปิดร้าน</p>
+        <p id="cashClose">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">เงินปิดร้านจริง</p>
+        <p id="cashInDrawer">ศูนย์การเรียนรูขวัญตา</p>
+        <p class="lable">ส่วนต่าง</p>
+        <p id="cashInDrawerDiff">ศูนย์การเรียนรูขวัญตา</p>
+      </div>
+    </div>
+  </body>
+  <script>
+    fetch("./summary.json").then((res) => {
+      res.json().then((data) => {
+        document.getElementById("shopName").innerHTML = data.shopName;
+        document.getElementById("date").innerHTML = data.date;
+        document.getElementById("Opentime").innerHTML = data.OpenTime;
+        document.getElementById("CloseTime").innerHTML = data.CloseTime;
+        document.getElementById("OpenHour").innerHTML = data.OpenHour;
+        document.getElementById("total").innerHTML = data.total.toLocaleString("en-US");
+        document.getElementById("clothTotal").innerHTML = data.clothTotal.toLocaleString("en-US");
+        document.getElementById("cashTotal").innerHTML = data.cashTotal.toLocaleString("en-US");
+        document.getElementById("cardTotal").innerHTML = data.cardTotal.toLocaleString("en-US");
+        document.getElementById("QRTotal").innerHTML = data.QRTotal.toLocaleString("en-US");
+        document.getElementById("discountTotal").innerHTML = data.discountTotal.toLocaleString("en-US");
+        document.getElementById("cashOpen").innerHTML = data.cashOpen.toLocaleString("en-US");
+        document.getElementById("cashIn").innerHTML = data.cashIn.toLocaleString("en-US");
+        document.getElementById("cashOut").innerHTML = data.cashOut.toLocaleString("en-US");
+        document.getElementById("cashClose").innerHTML = data.cashClose.toLocaleString("en-US");
+        document.getElementById("cashInDrawer").innerHTML = data.cashInDrawer.toLocaleString("en-US");
+        document.getElementById("cashInDrawerDiff").innerHTML = data.cashInDrawerDiff;
+        document.getElementById("billCount").innerHTML = data.billCount;
+      });
+    });
+  </script>
+</html>

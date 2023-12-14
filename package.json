@@ -38,8 +38,6 @@
     "axios": "^1.6.2",
     "babel-loader": "^9.1.3",
     "css-loader": "^6.8.1",
-    "electron": "22.0",
-    "electron-builder": "^24.9.1",
     "electron-pos-printer": "^1.3.7",
     "electron-reload": "^2.0.0-alpha.1",
     "kill-port": "^2.0.1",
@@ -63,6 +61,10 @@
     "webpack-merge": "^5.10.0",
     "zustand": "^4.4.6"
   },
+  "devDependencies": {
+    "electron-builder": "^24.9.1",
+    "electron": "22.0"
+  },
   "build": {
     "productName": "KhwantaPos",
     "appId": "com.jerga.chatapp",
@@ -77,7 +79,9 @@
       "preload.js",
       "./server/server.js",
       "./assets/Receipt.html",
-      "./assets/data.json"
+      "./assets/data.json",
+      "./assets/Report.html",
+      "./assets/summary.json"
     ],
     "extraResources": [
       "server/**/*",
@@ -88,7 +92,7 @@
     ],
     "mac": {
       "category": "public.app-category.developer-tools",
-      "icon": "assets/logo.ico",
+      "icon": "assets/KHWANTA_LOGO.png",
       "hardenedRuntime": true,
       "gatekeeperAssess": false
     },
@@ -107,7 +111,7 @@
       ]
     },
     "win": {
-      "icon": "assets/logo.ico",
+      "icon": "assets/KHWANTA_LOGO.png",
       "target": [
         "nsis"
       ]

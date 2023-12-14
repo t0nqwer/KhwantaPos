@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { DiscountModal, Product, Openshop, Summary } from "../components";
 import useUiContext from "../zustand/UiContext";
 import usePosContext from "../zustand/PosContext";
+import useShopContext from "../zustand/ShopContext";
 
 const Home = () => {
   const DiscountModalActive = useUiContext((state) => state.DiscountModalActive);
-  const isCashDrawerOpened = usePosContext((state) => state.isCashDrawerOpened);
-  const checkShopOpen = usePosContext((state) => state.checkShopOpen);
+  const isCashDrawerOpened = useShopContext((state) => state.isCashDrawerOpened);
+  const checkShopOpen = useShopContext((state) => state.checkShopOpen);
   useEffect(() => {
     checkShopOpen();
   }, []);

@@ -4,15 +4,11 @@ import { links } from "../side-menu";
 
 const Sidebar = () => {
   return (
-    <div className="flex flex-col justify-between items-center h-full mr-5 ">
+    <div className="flex flex-col items-center justify-between h-full mr-5 ">
       <div className="h-24"></div>
-      <div className="flex flex-col justify-center h-full mt-6 ml-8 space-y-4 text-left text-white ">
+      <div className="flex flex-col justify-center h-full mt-6 ml-8 space-y-4 text-left text-white select-none ">
         {links.map((item) => (
-          <NavLink
-            key={item.pathname}
-            to={`/${item.pathname}`}
-            className={({ isActive }) => (isActive ? "liactive" : "li")}
-          >
+          <NavLink key={item.pathname} to={`/${item.pathname}`} className={({ isActive }) => (isActive ? "liactive" : "li")}>
             <span>{item.name}</span>
           </NavLink>
         ))}

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import usePosContext from "../../zustand/PosContext";
 import { notify } from "../../function/Notification";
+import useShopContext from "../../zustand/ShopContext";
 
 const Openshop = () => {
   const [ChangeValue, setChangeValue] = useState("");
-  const openShop = usePosContext((state) => state.openShop);
+  const openShop = useShopContext((state) => state.openShop);
   const setValue = (p) => {
     if (!isNaN(+p.target.value)) {
       setChangeValue(p.target.value);

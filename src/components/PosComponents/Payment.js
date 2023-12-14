@@ -9,6 +9,7 @@ import ConfirmCredit from "./modal/ConfirmCredit";
 import ConfirmQrcode from "./modal/ConfirmQrcode";
 import { formatter, toNumber } from "../../function/PriceFormat";
 import Paymentlist from "./Paymentlist";
+import useAppContext from "../../zustand/AppContext";
 const Payment = () => {
   const [ordersum, setOrdersum] = useState("");
   const [Subtotal, setSubtotal] = useState(0);
@@ -19,6 +20,7 @@ const Payment = () => {
   const [openConfirmQrcode, setOpenConfirmQrcode] = useState(false);
   const setOpenResult = useUiContext((state) => state.setOpenResult);
   const FinishPayment = usePosContext((state) => state.FinishPayment);
+  const cashDrawer = useAppContext((state) => state.cashDrawer);
 
   const activeBill = usePosContext((state) => state.activeBill);
   const currentProductList = usePosContext((state) => state.currentProductList);
@@ -87,10 +89,11 @@ const Payment = () => {
       Payamt: toNumber(PayValue),
       Change: toNumber(PayValue) - Subtotal,
     };
-    console.log(data);
+
     FinishPayment("cash", Subtotal, data.productsum, inputValue, inputValue - Subtotal);
     setOpenResult(true);
     electron.Print.Print(data);
+    electron.Cashdrawer(cashDrawer);
   };
   const valuechange = (e) => {
     setPayvalue(e.target.value);
@@ -101,6 +104,7 @@ const Payment = () => {
     FinishPayment("credit", Subtotal, data.productsum, 0, 0);
     setOpenResult(true);
     electron.Print.Print(data);
+    electron.Cashdrawer(cashDrawer);
   };
   const PayQRCode = () => {
     const date = useGetDateTime();
@@ -108,6 +112,7 @@ const Payment = () => {
     FinishPayment("transfer", Subtotal, data.productsum, 0, 0);
     setOpenResult(true);
     electron.Print.Print(data);
+    electron.Cashdrawer(cashDrawer);
   };
   const setOpenPayment = useUiContext((state) => state.setOpenPayment);
   return (
@@ -151,7 +156,6 @@ const Payment = () => {
         <div className="w-full mt-3 mb-10 overflow-y-scroll grow scrollbar-thin scrollbar-thumb-neutral-600 srollbar-thumb-rounded-full">
           <div className="h-full rounded-md ">
             {currentProductList.map((e, i) => {
-              console.log(e);
               if (!e._id) {
                 return (
                   <Paymentlist

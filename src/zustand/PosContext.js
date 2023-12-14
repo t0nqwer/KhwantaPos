@@ -4,41 +4,12 @@ import { notify } from "../function/Notification";
 import { urlAddress } from "../url";
 const url = urlAddress;
 const usePosContext = create((set, get) => ({
-  isCashDrawerOpened: false,
   productList: [],
   activeBillList: [],
   activeBill: {},
   currentProductList: [],
   ResultData: {},
-  checkShopOpen: async () => {
-    try {
-      const { data } = await axios.get(`${urlAddress}/app/checkStore`);
-      console.log(data);
-      set((state) => ({
-        ...state,
-        isCashDrawerOpened: true,
-        PosID: data._id,
-      }));
-    } catch (error) {
-      notify(error.response.data);
-    }
-  },
-  openShop: async (cash) => {
-    try {
-      const { data } = await axios.post(`${urlAddress}/app/OpenStore`, {
-        cash: +cash,
-      });
-      set((state) => ({
-        ...state,
-        isStoreOpened: true,
-        isCashDrawerOpened: true,
-        PosID: data._id,
-      }));
-    } catch (error) {
-      notify(error.response.data.message);
-    }
-  },
-  closeShop: async () => {},
+
   fetchProduct: async (search) => {
     try {
       const { data } = await axios.get(`${url}/product/ListProduct?search=${search ? search : ""}`);
@@ -148,14 +119,19 @@ const usePosContext = create((set, get) => ({
     });
     set((state) => ({ ...state, activeBill: data }));
   },
-  FinishPayment: async (type, totalBfDiscount, totalPay, cash, change) => {
+  FinishPayment: async (type, totalPay, totalBfDiscount, cash, change) => {
     const state = get();
-    console.log(type, totalBfDiscount, totalPay, cash, change);
+    console.log({
+      billName: state.activeBill.name,
+      type: type,
+      totalBfDiscount: totalBfDiscount,
+      totalPay: totalPay,
+    });
     const { data } = await axios.post(`${url}/product/finishBill`, {
       billName: state.activeBill.name,
       type: type,
-      totalBfDiscount,
-      totalPay,
+      totalBfDiscount: totalBfDiscount,
+      totalPay: totalPay,
       cash,
       change,
     });
