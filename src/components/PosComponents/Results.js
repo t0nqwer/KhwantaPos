@@ -62,7 +62,7 @@ const Results = () => {
           <div className="mt-3 mb-5 outline outline-1 outline-zinc-700" />
           <div
             className="py-3 mt-8 rounded-md outline outline-1 outline-neutral-500 hover:bg-white hover:text-primary active:bg-neutral-700"
-            onClick={() => PrintReceipt()}
+            onClick={() => electron.Print.RePrint()}
           >
             พิมพ์ใบเสร็จ
           </div>

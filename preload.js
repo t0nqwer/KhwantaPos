@@ -8,7 +8,11 @@ contextBridge.exposeInMainWorld("electron", {
     PrintSummary(arg) {
       ipcRenderer.send("printSummary", arg);
     },
+    RePrint: () => {
+      ipcRenderer.send("rePrint");
+    },
   },
+
   getPort: {
     send(channel) {
       console.log("ASda");

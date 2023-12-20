@@ -3,14 +3,18 @@ import useUiContext from "../zustand/UiContext";
 import usePosContext from "../zustand/PosContext";
 import { notify } from "../function/Notification";
 import useShopContext from "../zustand/ShopContext";
+import useAppContext from "../zustand/AppContext";
 
 const Report = () => {
   const setCloseShopModalActive = useUiContext((state) => state.setCloseShopModalActive);
   const activeBillList = usePosContext((state) => state.activeBillList);
   const PrintReport = useShopContext((state) => state.printReport);
+  const cashDrawer = useAppContext((state) => state.cashDrawer);
 
   const handleCloseShop = () => {
     if (activeBillList.length > 0) return notify("กรุณาปิดบิลก่อนปิดร้าน");
+
+    electron.Cashdrawer(cashDrawer);
     setCloseShopModalActive(true);
   };
   const handlePrintReport = () => {

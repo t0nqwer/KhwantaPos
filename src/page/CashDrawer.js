@@ -101,7 +101,7 @@ const CashDrawer = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center w-full mt-20 ">
+        <div className="flex justify-center w-full mt-10 ">
           <button
             className="p-8 text-4xl tracking-wider text-center text-white border rounded-lg bg-highlight focus:shadow-outline hover:bg-opacity-0 hover:text-highlight active:bg-opacity-80"
             onClick={() => electron.Cashdrawer(cashDrawer)}

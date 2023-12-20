@@ -15,7 +15,7 @@ function createwindow() {
     frame: false,
     width: 1024,
     height: 768,
-    fullscreen: true,
+    // fullscreen: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -24,7 +24,7 @@ function createwindow() {
     },
   });
   win.loadFile("index.html");
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(function () {
@@ -61,7 +61,7 @@ ipcMain.on("print", (event, arg) => {
       nodeIntegration: true,
     },
   });
-  win2.once("ready-to-show", () => win2.hide());
+  // win2.once("ready-to-show", () => win2.hide());
   fs.writeFile(getAssetPath("assets/data.json"), JSON.stringify(arg), function (err) {
     win2.loadURL(getAssetPath("assets/Receipt.html"));
     win2.webContents.on("did-finish-load", async () => {
@@ -78,8 +78,42 @@ ipcMain.on("print", (event, arg) => {
         landscape: false,
       };
       win2.webContents.print(options, () => {
-        win2 = null;
+        win2.show();
+        // win2 = null;
       });
+    });
+  });
+});
+ipcMain.on("rePrint", (event, arg) => {
+  console.log("REPrint");
+
+  let win2 = new BrowserWindow({
+    width: 302,
+    height: 793,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true,
+    },
+  });
+  // win2.once("ready-to-show", () => win2.hide());
+
+  win2.loadURL(getAssetPath("assets/Receipt.html"));
+  win2.webContents.on("did-finish-load", async () => {
+    // Finding Default Printer name
+    let printersInfo = await win2.webContents.getPrintersAsync();
+    let printer = printersInfo.filter((printer) => printer.isDefault === true)[0];
+    const options = {
+      deviceName: printer.name,
+      silent: true,
+      pageSize: { height: 297000, width: 80000 },
+      margins: {
+        marginType: "printableArea",
+      },
+      landscape: false,
+    };
+    win2.webContents.print(options, () => {
+      win2.show();
+      // win2 = null;
     });
   });
 });
@@ -92,7 +126,7 @@ ipcMain.on("printSummary", (event, arg) => {
       nodeIntegration: true,
     },
   });
-  win3.once("ready-to-show", () => win3.hide());
+  // win3.once("ready-to-show", () => win3.hide());
   fs.writeFile(getAssetPath("assets/summary.json"), JSON.stringify(arg), function (err) {
     win3.loadURL(getAssetPath("assets/Report.html"));
     win3.webContents.on("did-finish-load", async () => {
@@ -108,7 +142,8 @@ ipcMain.on("printSummary", (event, arg) => {
         landscape: false,
       };
       win3.webContents.print(options, () => {
-        win3 = null;
+        win3.show();
+        // win3 = null;
       });
     });
   });

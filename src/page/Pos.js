@@ -4,17 +4,20 @@ import { Navbar, Sidebar, Payment, Result } from "../components";
 import useUiContext from "../zustand/UiContext";
 import { Page, CashDrawer, Report, Stock, Promotion, Bills, Setting, Home } from "./";
 import useShopContext from "../zustand/ShopContext";
-import CloseShop from "../components/modal/CloseShop";
+import { CloseShop, BillModal } from "../components/modal";
 const Pos = () => {
   const SideBarActive = useUiContext((state) => state.SideBarActive);
   const OpenResult = useUiContext((state) => state.OpenResult);
   const OpenPayment = useUiContext((state) => state.OpenPayment);
   const CloseShopModalActive = useUiContext((state) => state.CloseShopModalActive);
+  const BillModalActive = useUiContext((state) => state.BillModalActive);
 
   return (
     <HashRouter>
       <div className="relative w-full h-full bg-primary">
         {CloseShopModalActive && <CloseShop />}
+        {BillModalActive && <BillModal />}
+
         <div className="fixed z-150">
           <Navbar />
         </div>

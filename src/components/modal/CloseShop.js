@@ -8,16 +8,16 @@ const CloseShop = () => {
   const [cash, setCash] = useState(0);
   const setCloseShopModalActive = useUiContext((state) => state.setCloseShopModalActive);
   const closeShop = useShopContext((state) => state.closeShop);
-  const SideBarActive = useUiContext((state) => state.SideBarActive);
+  const setSideBarActive = useUiContext((state) => state.setSideBarActive);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (cash === 0) {
       notify("กรุณาใส่จำนวนเงินให้ถูกต้อง", "error");
     } else {
-      closeShop(cash);
-      SideBarActive(false);
       setCloseShopModalActive(false);
+      setSideBarActive(false);
+      closeShop(cash);
     }
   };
 
