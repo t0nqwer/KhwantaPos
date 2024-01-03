@@ -14,16 +14,26 @@ const BillModal = () => {
     setBillModalActive(false);
   };
   const PrintBill = () => {
+    console.log(singleBill);
     const data = {
       Name: singleBill.name,
-      Product: singleBill.map((item) => {
-        return {
-          barcode: item?.barcode,
-          proname: item.name,
-          qty: item.qty,
-          price: item.price,
-        };
-      }),
+      Product: singleBill.products
+        .map((item) => {
+          return {
+            barcode: item?.barcode,
+            proname: item.name,
+            qty: item.qty,
+            price: item.price,
+          };
+        })
+        .concat(
+          singleBill.customProducts.map((item) => ({
+            barcode: item?.barcode,
+            proname: item.name,
+            qty: item.qty,
+            price: item.price,
+          }))
+        ),
       customer: singleBill.customer,
       item: singleBill.ProductCount,
       productsum: singleBill.totalBfDiscount,

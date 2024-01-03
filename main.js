@@ -15,7 +15,7 @@ function createwindow() {
     frame: false,
     width: 1024,
     height: 768,
-    // fullscreen: true,
+    fullscreen: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -95,7 +95,7 @@ ipcMain.on("rePrint", (event, arg) => {
       nodeIntegration: true,
     },
   });
-  // win2.once("ready-to-show", () => win2.hide());
+  win2.once("ready-to-show", () => win2.hide());
 
   win2.loadURL(getAssetPath("assets/Receipt.html"));
   win2.webContents.on("did-finish-load", async () => {
@@ -112,8 +112,7 @@ ipcMain.on("rePrint", (event, arg) => {
       landscape: false,
     };
     win2.webContents.print(options, () => {
-      win2.show();
-      // win2 = null;
+      win2 = null;
     });
   });
 });
@@ -126,7 +125,7 @@ ipcMain.on("printSummary", (event, arg) => {
       nodeIntegration: true,
     },
   });
-  // win3.once("ready-to-show", () => win3.hide());
+  win3.once("ready-to-show", () => win3.hide());
   fs.writeFile(getAssetPath("assets/summary.json"), JSON.stringify(arg), function (err) {
     win3.loadURL(getAssetPath("assets/Report.html"));
     win3.webContents.on("did-finish-load", async () => {
@@ -142,8 +141,7 @@ ipcMain.on("printSummary", (event, arg) => {
         landscape: false,
       };
       win3.webContents.print(options, () => {
-        win3.show();
-        // win3 = null;
+        win3 = null;
       });
     });
   });
