@@ -10,6 +10,8 @@ import ConfirmQrcode from "./modal/ConfirmQrcode";
 import { formatter, toNumber } from "../../function/PriceFormat";
 import Paymentlist from "./Paymentlist";
 import useAppContext from "../../zustand/AppContext";
+import axios from "axios";
+import { urlAddress } from "../../url";
 const Payment = () => {
   const [ordersum, setOrdersum] = useState("");
   const [Subtotal, setSubtotal] = useState(0);
@@ -71,16 +73,28 @@ const Payment = () => {
     setInputvalue(`${inputValue}${e.target.id}`);
   };
 
-  const PrintReceipt = () => {
+  const PrintReceipt = async () => {
     const date = useGetDateTime();
-    const data = { ...sentdata, subtotal: +Subtotal, time: date.time, Paytype: "-", Payamt: "-" };
-    console.log(data);
+
+    const res = await axios.get(`${urlAddress}/app/store`);
+    const data = {
+      ...sentdata,
+      subtotal: +Subtotal,
+      time: date.time,
+      Paytype: "-",
+      Payamt: "-",
+      storeName: res.data.name,
+      storeAddress: res.data.address,
+    };
+
     electron.Print.Print(data);
   };
 
-  const PayCash = () => {
+  const PayCash = async () => {
     if (toNumber(PayValue) < Subtotal) return notify("จำนวนเงินไม่เพียงพอ");
     const date = useGetDateTime();
+    const res = await axios.get(`${urlAddress}/app/store`);
+
     const data = {
       ...sentdata,
       subtotal: +Subtotal,
@@ -88,6 +102,8 @@ const Payment = () => {
       Paytype: "เงินสด",
       Payamt: toNumber(PayValue),
       Change: toNumber(PayValue) - Subtotal,
+      storeName: res.data.name,
+      storeAddress: res.data.address,
     };
 
     FinishPayment("cash", Subtotal, data.productsum, inputValue, inputValue - Subtotal);
@@ -98,17 +114,37 @@ const Payment = () => {
   const valuechange = (e) => {
     setPayvalue(e.target.value);
   };
-  const PayCreditCard = () => {
+  const PayCreditCard = async () => {
     const date = useGetDateTime();
-    const data = { ...sentdata, subtotal: +Subtotal, time: date.time, Paytype: "บัตรเครดิต", Payamt: "0" };
+    const res = await axios.get(`${urlAddress}/app/store`);
+
+    const data = {
+      ...sentdata,
+      subtotal: +Subtotal,
+      time: date.time,
+      Paytype: "บัตรเครดิต",
+      Payamt: "0",
+      storeName: res.data.name,
+      storeAddress: res.data.address,
+    };
     FinishPayment("credit", Subtotal, data.productsum, 0, 0);
     setOpenResult(true);
     electron.Print.Print(data);
     electron.Cashdrawer(cashDrawer);
   };
-  const PayQRCode = () => {
+  const PayQRCode = async () => {
     const date = useGetDateTime();
-    const data = { ...sentdata, subtotal: +Subtotal, time: date.time, Paytype: "QR Code", Payamt: "0" };
+    const res = await axios.get(`${urlAddress}/app/store`);
+
+    const data = {
+      ...sentdata,
+      subtotal: +Subtotal,
+      time: date.time,
+      Paytype: "QR Code",
+      Payamt: "0",
+      storeName: res.data.name,
+      storeAddress: res.data.address,
+    };
     FinishPayment("transfer", Subtotal, data.productsum, 0, 0);
     setOpenResult(true);
     electron.Print.Print(data);

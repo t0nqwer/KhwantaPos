@@ -24,7 +24,7 @@ function createwindow() {
     },
   });
   win.loadFile("index.html");
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 }
 
 app.whenReady().then(function () {
@@ -61,7 +61,7 @@ ipcMain.on("print", (event, arg) => {
       nodeIntegration: true,
     },
   });
-  // win2.once("ready-to-show", () => win2.hide());
+  win2.once("ready-to-show", () => win2.hide());
   fs.writeFile(getAssetPath("assets/data.json"), JSON.stringify(arg), function (err) {
     win2.loadURL(getAssetPath("assets/Receipt.html"));
     win2.webContents.on("did-finish-load", async () => {
@@ -78,15 +78,12 @@ ipcMain.on("print", (event, arg) => {
         landscape: false,
       };
       win2.webContents.print(options, () => {
-        win2.show();
-        // win2 = null;
+        win2 = null;
       });
     });
   });
 });
 ipcMain.on("rePrint", (event, arg) => {
-  console.log("REPrint");
-
   let win2 = new BrowserWindow({
     width: 302,
     height: 793,

@@ -375,10 +375,9 @@ l15 53 -32 -8 c-34 -8 -38 -8 -212 0 -60 3 -121 2 -135 -3z m185 -63 c15 -7
           </g>
         </svg>
       </div>
-      <p style="margin: 0; text-align: center; font-size: 15px; font-weight: 700">ศูนย์การเรียนรูขวัญตา</p>
-      <p style="margin: 0; text-align: center; font-size: 12px">355 หมู่ 5 โพธิ์ชัย</p>
-      <p style="margin: 0; text-align: center; font-size: 12px">อำเภอเมืองจังวัดหนองบัวลำภู จังหวัดหนองบัวลำภู 39000</p>
-      <p style="margin: 0; text-align: center; font-size: 12px">โทร : 0628266929</p>
+      <p style="margin: 0; text-align: center; font-size: 15px; font-weight: 700" id="storeName">ศูนย์การเรียนรูขวัญตา</p>
+      <p style="margin: 0; text-align: center; font-size: 12px" id="storeAddress">355 หมู่ 5 โพธิ์ชัย</p>
+      <p style="margin: 0; text-align: center; font-size: 12px">โทร : 093-489-6926</p>
       <p style="margin: 0; text-align: center; font-size: 13px">Line:@khwanta &nbsp;&nbsp;&nbsp; IG:khwanta.handicraft</p>
       <p style="margin: 0; text-align: center; font-size: 13px">Facebook : facebook.com/khwantathai</p>
       <p style="margin: 0; text-align: center; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: clip">
@@ -1157,6 +1156,8 @@ l15 53 -32 -8 c-34 -8 -38 -8 -212 0 -60 3 -121 2 -135 -3z m185 -63 c15 -7
     fetch("./data.json")
       .then((response) => response.json())
       .then((json) => {
+        document.getElementById("storeName").innerHTML = `${json.storeName}`;
+        document.getElementById("storeAddress").innerHTML = `${json.storeAddress}`;
         document.getElementById("billID").innerHTML = `บิลเลขที่ : ${json.Name}`;
         document.getElementById("time").innerHTML = `วันเวลา :  ${json.time}`;
         document.getElementById("customer").innerHTML = `ลูกค้า :  ${json.customer ? json.customer : "ลูกค้าหน้าร้าน"}`;

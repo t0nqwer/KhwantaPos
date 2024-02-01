@@ -5,6 +5,7 @@ import { urlAddress } from "../url";
 const useAppContext = create((set) => ({
   loading: false,
   storeName: "1",
+
   setLoading: (loading) => set(() => ({ loading })),
   setStoreName: (storeName) => set(() => ({ storeName })),
   cashDrawer: "",
